@@ -6,12 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import equipa3.grupo3.services.ApiService;
 
 public class LoginApp extends Application {
+
+
+
+    
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/caminho/do/teu/fxml.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("equipa3/grupo3/GUI/Scenes/menuLogin.fxml"));
             Parent root = loader.load();
             
             Scene scene = new Scene(root);
