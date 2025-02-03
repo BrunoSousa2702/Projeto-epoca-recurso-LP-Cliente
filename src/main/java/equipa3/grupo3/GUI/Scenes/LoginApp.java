@@ -50,7 +50,7 @@ public class LoginApp implements Initializable {
                 ScenesController.setUtilizadorID(idCliente);
 
                 // Carregar nova cena
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/equipa3/grupo3/GUI/Fxmls/menuRegistar.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("equipa3/grupo3/GUI/Fxmls/menuRegistar.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
