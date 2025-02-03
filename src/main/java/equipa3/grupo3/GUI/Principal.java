@@ -12,7 +12,7 @@ public class Principal extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		Parent root = FXMLLoader.load(getClass().getResource("/equipa3/grupo3/GUImvn clean package/Fxmls/menuLogin.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/equipa3/grupo3/GUImvn clean package/Fxmls/menuLogin.fxml"));	
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
