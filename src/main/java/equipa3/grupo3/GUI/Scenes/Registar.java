@@ -1,37 +1,76 @@
 package equipa3.grupo3.GUI.Scenes;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ToggleGroup;
+import equipa3.grupo3.services.ApiService;
+import org.json.JSONObject;
+import equipa3.grupo3.GUI.Scenes.ScenesController;
 
-public class Registar {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Registar implements Initializable {
 
     @FXML
-    private TextField usernameField;
+    private Button button_registarr;
 
     @FXML
-    private PasswordField passwordField;
+    private Button button_voltar;
 
     @FXML
-    private PasswordField confirmPasswordField;
+    private RadioButton rb_cliente;
 
     @FXML
-    private void handleRegister() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
+    private RadioButton rb_profissional;
 
-        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            System.out.println("Please fill in all fields.");
-            return;
-        }
+    @FXML
+    private TextField tf_email;
 
-        if (!password.equals(confirmPassword)) {
-            System.out.println("Passwords do not match.");
-            return;
-        }
+    @FXML
+    private TextField tf_username;
 
-        // Aqui você pode adicionar a lógica para registrar o usuário, como chamar um serviço de API
-        System.out.println("User registered successfully: " + username);
+    @FXML
+    private TextField tf_nome;
+
+    @FXML
+    private PasswordField tf_password;
+
+    private ApiService apiService = new ApiService();
+
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+        ToggleGroup toggleGroup = new ToggleGroup();
+        rb_cliente.setToggleGroup(toggleGroup);
+        rb_profissional.setToggleGroup(toggleGroup);
+        rb_cliente.setSelected(true);
+
+        button_voltar.setOnAction(ae -> {
+            System.out.println("Botão Voltar Apertado");
+            ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/login.fxml");
+        });
+
+        button_registarr.setOnAction(ae -> {
+            System.out.println("Botão Registar Apertado");
+            try {
+                JSONObject json = new JSONObject();
+                json.put("nome", tf_nome.getText());
+                json.put("email", tf_email.getText());
+                json.put("password", tf_password.getText());
+                json.put("username", tf_username.getText());
+                json.put("userType", ((RadioButton) toggleGroup.getSelectedToggle()).getText().toUpperCase());
+                json.put("codigo", 0);
+
+                String response = apiService.postData("/utilizadores", json.toString());
+                ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/login.fxml");
+            } catch (Exception e) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setContentText("Não foi possível realizar o registo, verifique se não há campo em branco.");
+                alert.show();
+                e.printStackTrace();
+            }
+        });
     }
 }

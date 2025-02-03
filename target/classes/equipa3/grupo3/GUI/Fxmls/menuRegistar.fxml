@@ -15,6 +15,8 @@
 <?import javafx.scene.text.Font?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="equipa3.grupo3.GUI.Scenes.Registar">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="602.0" style="-fx-background-color: #808080;">
          <children>
             <Label layoutX="52.0" layoutY="35.0" text="To do List" textAlignment="CENTER" underline="true">
                <textFill>
@@ -87,7 +89,7 @@
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </Label>
-            <TextField id="tf_email" fx:id="tf_morada" layoutX="72.0" layoutY="321.0" prefHeight="27.0" prefWidth="455.0" style="-fx-background-color: WHITE; -fx-border-color: black;">
+            <TextField id="tf_email" fx:id="tf_username" layoutX="72.0" layoutY="321.0" prefHeight="27.0" prefWidth="455.0" style="-fx-background-color: WHITE; -fx-border-color: black;">
                <font>
                   <Font name="Arial Rounded MT Bold" size="12.0" />
                </font>
@@ -110,10 +112,10 @@
                   <Font name="Arial Rounded MT Bold" size="16.0" />
                </font>
             </RadioButton>
-          <Button layoutX="150.0" layoutY="420.0" mnemonicParsing="false" text="Registar" />
+          <Button fx:id="button_registarr" layoutX="150.0" layoutY="420.0" mnemonicParsing="false" text="Registar" />
             <ButtonBar layoutX="-60.0" layoutY="413.0" prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                <Button mnemonicParsing="false" text="&lt;&lt;Voltar" />
+                <Button fx:id="button_voltar" mnemonicParsing="false" text="&lt;&lt;Voltar" />
               </buttons>
             </ButtonBar>
          </children>
