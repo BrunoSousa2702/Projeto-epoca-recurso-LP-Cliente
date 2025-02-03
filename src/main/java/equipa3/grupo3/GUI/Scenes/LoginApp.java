@@ -50,7 +50,7 @@ public class LoginApp implements Initializable {
                 ScenesController.setUtilizadorID(idCliente);
 
                 // Carregar nova cena
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/equipa3/grupo3/GUI/Fxmls/allaround_menucliente.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/equipa3/grupo3/GUI/Fxmls/menuRegistar.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
@@ -68,7 +68,7 @@ public class LoginApp implements Initializable {
         button_registar.setOnAction(ae -> {
             System.out.println("Botão Registar Apertado");
             Stage stage = (Stage) button_registar.getScene().getWindow();
-            ScenesController.changeScene(stage, "/equipa3/grupo3/GUI/Fxmls/allaround_menuRegisto.fxml");
+            ScenesController.changeScene("/equipa3/grupo3/GUI/FXML/menuRegistar.fxml");
         });
     }
 }

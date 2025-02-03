@@ -48,7 +48,7 @@ public class Registar implements Initializable {
 
         button_voltar.setOnAction(ae -> {
             System.out.println("Botão Voltar Apertado");
-            ScenesController.changeScene(((Stage) button_registarr.getScene().getWindow()), "/equipa3/grupo3/GUI/Fxmls/login.fxml");
+            ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/login.fxml");
         });
 
         button_registarr.setOnAction(ae -> {
@@ -63,7 +63,7 @@ public class Registar implements Initializable {
                 json.put("codigo", 0);
 
                 apiService.postData("/utilizadores", json.toString());
-                ScenesController.changeScene(((Stage) button_registarr.getScene().getWindow()), "/equipa3/grupo3/GUI/Fxmls/login.fxml");
+                ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/menulogin.fxml");
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setContentText("Não foi possível realizar o registo, verifique se não há campo em branco.");

@@ -1,126 +1,108 @@
 package equipa3.grupo3.GUI.Scenes;
 
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import equipa3.grupo3.services.ApiService;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.scene.layout.AnchorPane;
+import equipa3.grupo3.GUI.Model.Tarefa;
+import equipa3.grupo3.GUI.Model.Tarefa.Estado;
+import equipa3.grupo3.GUI.Model.Tarefa.Prioridade;
 
 public class TabelaTarefas implements Initializable {
+    @FXML
+    private AnchorPane anchorpane_tarefa;
 
     @FXML
-    private AnchorPane anchorpane_servico;
+    private Button button_adicionarTarefa;
 
     @FXML
-    private Button button_adicionartarefa;
+    private Button button_concluirTarefa;
 
     @FXML
-    private Button button_concluirServico;
+    private Button button_voltar;
 
     @FXML
-    private Button button_voltarPraTabela;
+    private TableColumn<Tarefa, String> tc_descricao;
 
     @FXML
-    private Button button_voltarl;
+    private TableColumn<Tarefa, Prioridade> tc_prioridade;
 
     @FXML
-    private TableView<TarefaDTO> table_servicos;
+    private TableColumn<Tarefa, Estado> tc_estado;
 
     @FXML
-    private TableColumn<TarefaDTO, String> tc_tipo;
+    private TableColumn<Tarefa, LocalDate> tc_data;
+    
+    @FXML
+    private TableView<Tarefa> table_tarefas;
 
     @FXML
-    private TableColumn<TarefaDTO, String> tc_descricaotarefa;
+    private TextField tf_descTarefa;
 
     @FXML
-    private TableColumn<TarefaDTO, String> tc_prioridade;
+    private TextField tf_prioridade;
 
     @FXML
-    private TableColumn<TarefaDTO, String> tc_estado;
-
+    private TextField tf_estado;
+    
     @FXML
-    private TableColumn<TarefaDTO, String> tc_data;
+    private TextField tf_data;
 
-    @FXML
-    private TextField tf_descServico;
-
-    @FXML
-    private TextField tf_valorHoraServico;
-
-    @FXML
-    private TextField tf_tipoServico;
-
-    private ObservableList<TarefaDTO> listaTarefas = FXCollections.observableArrayList();
-    private ApiService apiService = new ApiService();
+    private ObservableList<Tarefa> listaTarefas = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tc_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-        tc_descricaotarefa.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        tc_descricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         tc_prioridade.setCellValueFactory(new PropertyValueFactory<>("prioridade"));
         tc_estado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tc_data.setCellValueFactory(new PropertyValueFactory<>("data"));
 
-        carregarTarefas();
+        table_tarefas.setItems(listaTarefas);
 
-        button_adicionartarefa.setOnAction(ae -> anchorpane_servico.setVisible(true));
+        button_adicionarTarefa.setOnAction(ae -> anchorpane_tarefa.setVisible(true));
 
-        button_concluirServico.setOnAction(ae -> adicionarTarefa());
+        button_concluirTarefa.setOnAction(ae -> adicionarTarefa());
 
-        button_voltarPraTabela.setOnAction(ae -> anchorpane_servico.setVisible(false));
-
-        button_voltarl.setOnAction(ae -> ScenesController.changeScene((Stage) button_voltarl.getScene().getWindow(), "/equipa3/grupo3/GUI/Fxmls/menu.fxml"));
-    }
-
-    private void carregarTarefas() {
-        try {
-            String response = apiService.getData("/tarefas");
-            JSONArray tarefasArray = new JSONArray(response);
-            for (int i = 0; i < tarefasArray.length(); i++) {
-                JSONObject obj = tarefasArray.getJSONObject(i);
-                TarefaDTO tarefa = new TarefaDTO(
-                    obj.getString("tipo"),
-                    obj.getString("descricao"),
-                    obj.getString("prioridade"),
-                    obj.getString("estado"),
-                    obj.getString("data")
-                );
-                listaTarefas.add(tarefa);
-            }
-            table_servicos.setItems(listaTarefas);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        button_voltar.setOnAction(ae -> anchorpane_tarefa.setVisible(false));
     }
 
     private void adicionarTarefa() {
+        String descricao = tf_descTarefa.getText().trim();
+        String prioridadeStr = tf_prioridade.getText().trim().toUpperCase();
+        String estadoStr = tf_estado.getText().trim().toUpperCase();
+        String dataStr = tf_data.getText().trim();
+
+        if (descricao.isEmpty() || prioridadeStr.isEmpty() || estadoStr.isEmpty() || dataStr.isEmpty()) {
+            System.out.println("Todos os campos devem ser preenchidos!");
+            return;
+        }
+
         try {
-            TarefaDTO novaTarefa = new TarefaDTO(
-                tf_tipoServico.getText(),
-                tf_descServico.getText(),
-                "Média", // Pode ser ajustado conforme necessário
-                "Pendente",
-                "Hoje" // Aqui pode ser a data atual
-            );
+            Prioridade prioridade = Prioridade.valueOf(prioridadeStr);
+            Estado estado = Estado.valueOf(estadoStr);
+            LocalDate data = LocalDate.parse(dataStr);
 
-            listaTarefas.add(novaTarefa);
-            apiService.postData("/tarefas", new JSONObject(novaTarefa).toString());
+            Tarefa tarefa = new Tarefa(listaTarefas.size() + 1, "Tarefa", descricao, data, prioridade, estado, null);
+            listaTarefas.add(tarefa);
 
-            tf_descServico.clear();
-            tf_tipoServico.clear();
-            anchorpane_servico.setVisible(false);
+            tf_descTarefa.clear();
+            tf_prioridade.clear();
+            tf_estado.clear();
+            tf_data.clear();
+            anchorpane_tarefa.setVisible(false);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Erro ao adicionar tarefa. Verifique os valores inseridos.");
         }
     }
 }

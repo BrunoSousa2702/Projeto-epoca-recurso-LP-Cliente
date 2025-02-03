@@ -1,5 +1,6 @@
 package equipa3.grupo3.GUI;
 
+import equipa3.grupo3.GUI.Scenes.ScenesController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,8 @@ public class Principal extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+		ScenesController.setMainStage(primaryStage);
+		ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/menulogin.fxml");
 	}
 
 }
