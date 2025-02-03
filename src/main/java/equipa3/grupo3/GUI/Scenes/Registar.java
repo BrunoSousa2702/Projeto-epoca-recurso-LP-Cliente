@@ -5,10 +5,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import equipa3.grupo3.services.ApiService;
 import org.json.JSONObject;
-import equipa3.grupo3.GUI.Scenes.ScenesController;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -49,7 +48,7 @@ public class Registar implements Initializable {
 
         button_voltar.setOnAction(ae -> {
             System.out.println("Botão Voltar Apertado");
-            ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/login.fxml");
+            ScenesController.changeScene(((Stage) button_registarr.getScene().getWindow()), "/equipa3/grupo3/GUI/Fxmls/login.fxml");
         });
 
         button_registarr.setOnAction(ae -> {
@@ -63,8 +62,8 @@ public class Registar implements Initializable {
                 json.put("userType", ((RadioButton) toggleGroup.getSelectedToggle()).getText().toUpperCase());
                 json.put("codigo", 0);
 
-                String response = apiService.postData("/utilizadores", json.toString());
-                ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/login.fxml");
+                apiService.postData("/utilizadores", json.toString());
+                ScenesController.changeScene(((Stage) button_registarr.getScene().getWindow()), "/equipa3/grupo3/GUI/Fxmls/login.fxml");
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setContentText("Não foi possível realizar o registo, verifique se não há campo em branco.");

@@ -8,10 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import equipa3.grupo3.services.ApiService;
-import equipa3.grupo3.models.TarefaDTO; // Update this to the correct package path
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -79,7 +79,7 @@ public class TabelaTarefas implements Initializable {
 
         button_voltarPraTabela.setOnAction(ae -> anchorpane_servico.setVisible(false));
 
-        button_voltarl.setOnAction(ae -> ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/menu.fxml"));
+        button_voltarl.setOnAction(ae -> ScenesController.changeScene((Stage) button_voltarl.getScene().getWindow(), "/equipa3/grupo3/GUI/Fxmls/menu.fxml"));
     }
 
     private void carregarTarefas() {

@@ -12,7 +12,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.json.JSONObject;
-import equipa3.grupo3.GUI.ScenesController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -60,7 +59,7 @@ public class LoginApp implements Initializable {
             } catch (Exception e) {
                 // Alerta de falha no login
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("As credenciais estão erradas, tente novamente.");
+                alert.setContentText("Falha no Login , tente novamente.");
                 alert.show();
                 e.printStackTrace();
             }
@@ -68,7 +67,8 @@ public class LoginApp implements Initializable {
 
         button_registar.setOnAction(ae -> {
             System.out.println("Botão Registar Apertado");
-            ScenesController.changeScene("/equipa3/grupo3/GUI/Fxmls/allaround_menuRegisto.fxml");
+            Stage stage = (Stage) button_registar.getScene().getWindow();
+            ScenesController.changeScene(stage, "/equipa3/grupo3/GUI/Fxmls/allaround_menuRegisto.fxml");
         });
     }
 }
