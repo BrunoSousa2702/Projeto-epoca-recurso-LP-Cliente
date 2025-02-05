@@ -10,15 +10,16 @@ public class Utilizador {
     private boolean isAdmin = false;
     //private enum tipoUtilizador {ADMIN, USER};
 
-    public Utilizador(int id, String nome, String password, String email,String username, boolean isAdmin) {
+    public Utilizador(int id, String nome, String password, String email, String username, boolean isAdmin) {
         this.id = id;
         this.nome = nome;
         this.password = password;
         this.email = email;
         this.username = username;
-        this.isAdmin = false;
+        this.isAdmin = isAdmin;
     }
-
+    public Utilizador(){}
+    
     public int getId() {
         return id;
     }

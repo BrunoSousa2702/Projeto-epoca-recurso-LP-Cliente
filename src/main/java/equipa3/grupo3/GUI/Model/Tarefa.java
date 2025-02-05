@@ -1,11 +1,12 @@
 package equipa3.grupo3.GUI.Model;
 
+import equipa3.grupo3.GUI.Model.Utilizador;
+
 import java.time.LocalDate;
 
 public class Tarefa {
 
     private int id;
-
     private String titulo;
     private String descricao;
     private LocalDate data;
@@ -26,7 +27,8 @@ public class Tarefa {
 
    
     private Utilizador utilizador;
-
+    public Tarefa(){
+    }
     // Getters e Setters
     public int getId() {
         return id;
@@ -86,8 +88,7 @@ public class Tarefa {
 
     // Construtor
 
-    public Tarefa(int id, String titulo, String descricao, LocalDate data, Prioridade prioridade, Estado estado, Utilizador utilizador) {
-        this.id = id;
+    public Tarefa(int id2, String titulo, String descricao, LocalDate data, Prioridade prioridade, Estado estado, Utilizador utilizador) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.data = data;
@@ -95,11 +96,6 @@ public class Tarefa {
         this.estado = estado;
         this.utilizador = utilizador;
     }
-    
-
-    public Tarefa() {
-    }
-
     @Override
     public String toString() {
         return "Tarefa{" +
