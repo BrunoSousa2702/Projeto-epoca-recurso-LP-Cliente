@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="equipa3.grupo3.GUI.Scenes.Tabela_tarefas" spacing="10" alignment="CENTER" padding="10">
+    <TableView fx:id="tabelaTarefas">
+        <columns>
+            <TableColumn fx:id="colunaId" text="ID"/>
+            <TableColumn fx:id="colunaDescricao" text="Descrição"/>
+            <TableColumn fx:id="colunaStatus" text="Status"/>
+        </columns>
+    </TableView>
+</VBox>

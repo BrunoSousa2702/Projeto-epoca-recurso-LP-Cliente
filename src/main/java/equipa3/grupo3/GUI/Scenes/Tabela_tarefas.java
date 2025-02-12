@@ -1,6 +1,6 @@
 package equipa3.grupo3.GUI.Scenes;
 
-import javafx.fxml.FXML;
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -9,21 +9,21 @@ import javafx.collections.ObservableList;
 
 public class Tabela_tarefas {
 
-    @FXML
+    
     private TableView<Tarefa> tabelaTarefas;
 
-    @FXML
+    
     private TableColumn<Tarefa, Integer> colunaId;
 
-    @FXML
+    
     private TableColumn<Tarefa, String> colunaDescricao;
 
-    @FXML
+    
     private TableColumn<Tarefa, String> colunaStatus;
 
     private ObservableList<Tarefa> listaTarefas;
 
-    @FXML
+    
     public void initialize() {
         colunaId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colunaDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
